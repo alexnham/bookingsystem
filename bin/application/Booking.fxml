@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.MenuButton?>
-<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="608.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.MainController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="608.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.BookingController">
    <children>
       <AnchorPane layoutY="22.0" prefHeight="625.0" prefWidth="111.0" style="-fx-background-color: ADD8E6;">
          <children>
@@ -34,32 +34,10 @@
             </Button>
          </children>
       </AnchorPane>
-      <TextField layoutX="250.0" layoutY="252.0" />
-      <TextField layoutX="250.0" layoutY="285.0" />
-      <TextField layoutX="250.0" layoutY="321.0" />
+      <TextField fx:id="customerName" layoutX="416.0" layoutY="258.0" />
       <Text layoutX="122.0" layoutY="158.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Book an Appointment" wrappingWidth="190.42529296875">
          <font>
             <Font size="20.0" />
-         </font>
-      </Text>
-      <Text layoutX="142.0" layoutY="237.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Employee:">
-         <font>
-            <Font size="21.0" />
-         </font>
-      </Text>
-      <Text layoutX="140.0" layoutY="273.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Service:">
-         <font>
-            <Font size="21.0" />
-         </font>
-      </Text>
-      <Text layoutX="140.0" layoutY="306.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Start Time:">
-         <font>
-            <Font size="21.0" />
-         </font>
-      </Text>
-      <Text layoutX="140.0" layoutY="342.0" strokeType="OUTSIDE" strokeWidth="0.0" text="End Time:">
-         <font>
-            <Font size="21.0" />
          </font>
       </Text>
       <AnchorPane prefHeight="139.0" prefWidth="600.0" style="-fx-background-color: #D3D3D3;">
@@ -71,16 +49,29 @@
             </Text>
          </children>
       </AnchorPane>
-      <Text fx:id="Error" fill="#bf4949" layoutX="142.0" layoutY="398.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="241.74658203125">
+      <Text layoutX="152.0" layoutY="279.0" lineSpacing="10.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Customer Name:&#10;Date:&#10;Service:&#10;Employee:&#10;Start Time:&#10;End Time:&#10;Customer Phone Num:">
          <font>
-            <Font size="31.0" />
+            <Font size="21.0" />
          </font>
       </Text>
-      <MenuButton layoutX="247.0" layoutY="216.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="160.0" text="Select Employee">
-        <items>
-          <MenuItem mnemonicParsing="false" text="Action 1" />
-          <MenuItem mnemonicParsing="false" text="Action 2" />
-        </items>
-      </MenuButton>
+      <DatePicker fx:id="selectDate" layoutX="415.0" layoutY="292.0" prefHeight="26.0" prefWidth="160.0" />
+      <Text fx:id="endTime" layoutX="415.0" layoutY="461.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="160.0">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Text>
+      <Button layoutX="438.0" layoutY="214.0" mnemonicParsing="false" onAction="#newService" prefHeight="26.0" prefWidth="137.0" text="Add a New Service" />
+      <Button layoutX="438.0" layoutY="181.0" mnemonicParsing="false" onAction="#delService" prefHeight="26.0" prefWidth="137.0" text="Delete a Service" />
+      <ComboBox fx:id="selectEmp" layoutX="416.0" layoutY="365.0" prefHeight="26.0" prefWidth="160.0" />
+      <ComboBox fx:id="startTime" layoutX="415.0" layoutY="399.0" prefHeight="26.0" prefWidth="160.0" />
+      <ComboBox fx:id="service" layoutX="416.0" layoutY="329.0" prefHeight="26.0" prefWidth="160.0" />
+      <Button layoutX="300.0" layoutY="541.0" mnemonicParsing="false" onAction="#finishBooking" text="Book" />
+      <TextField fx:id="phoneNum" layoutX="415.0" layoutY="465.0" prefHeight="26.0" prefWidth="160.0" />
+      <Text fx:id="success" layoutX="217.0" layoutY="588.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="222.21630859375">
+         <font>
+            <Font size="19.0" />
+         </font>
+      </Text>
+      <Button layoutX="438.0" layoutY="149.0" mnemonicParsing="false" onAction="#cancelApp" prefHeight="26.0" prefWidth="137.0" text="Cancel Appointment" />
    </children>
 </AnchorPane>

@@ -19,4 +19,7 @@ public class Employee {
 	public void setId(int id) {
 		empID = id;
 	}
+	public String toString() {
+		return getEmpName();
+	}
 }

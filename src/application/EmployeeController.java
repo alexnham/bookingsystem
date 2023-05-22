@@ -1,5 +1,6 @@
 package application;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -31,30 +32,18 @@ import javafx.stage.Stage;
 
 public class EmployeeController extends MainController implements Initializable {
 
-	private Stage stage;
-	private Scene scene;
-	private Parent root;
 	@FXML
 	private TextField newName;
 	@FXML
 	private Text success;
-	@FXML
-	private DatePicker selectDate;
-	@FXML
-	private Text date;
 	@FXML
 	private TableView<Employee> empList;
 	@FXML
 	private TableColumn<Employee, Integer> empID;
 	@FXML
 	private TableColumn<Employee, String> empName;
-	ObservableList<Employee> list; 
-			//=FXCollections.observableArrayList(
 
-		//	new Employee("alex",1), new Employee("nham",2)
-
-	//);
-
+	ObservableList<Employee> list;
 
 	public void home(ActionEvent e) {
 		super.home(e);
@@ -81,17 +70,13 @@ public class EmployeeController extends MainController implements Initializable 
 		super.swap(e, "DelEmployee.fxml");
 	}
 
-	public void changeDate(ActionEvent e) {
-		LocalDate selectedDate = selectDate.getValue();
-		String formatDate = selectedDate.format(DateTimeFormatter.ofPattern("MMM dd"));
-		date.setText(formatDate);
-	}
-
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		try {
 			list = super.loadEmployees();
 		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

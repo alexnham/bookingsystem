@@ -14,7 +14,7 @@ import javafx.scene.shape.Arc;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class loginController {
+public class LoginController {
 	@FXML
 	PasswordField password;
 	@FXML

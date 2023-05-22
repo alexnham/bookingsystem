@@ -32,7 +32,7 @@ public class Main extends Application{
 		String css = this.getClass().getResource("application.css").toExternalForm();
 		scene.getStylesheets().add(css);
 		stage.setScene(scene);
-		stage.setTitle("hello world");
+		stage.setTitle("Booking System");
 		stage.setResizable(false);
 		stage.show();
 	}
