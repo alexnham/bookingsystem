@@ -298,7 +298,6 @@ public class Utility {
 
 			while (resultSet.next())
 				list.add(new Service(resultSet.getString("name"), resultSet.getInt("duration")));
-			System.out.println(list.get(0));
 			services.getItems().addAll(list);
 //			
 		} catch (Exception e) {
@@ -333,6 +332,23 @@ public class Utility {
 		startTime.getItems().remove(43);
 		startTime.getItems().remove(42);
 		startTime.getItems().remove(41);
+		if (service.getTimeKey() == 1) {
+			startTime.getItems().remove(40);
+
+		} else if (service.getTimeKey() == 2) {
+			startTime.getItems().remove(40);
+			startTime.getItems().remove(39);
+		} else if (service.getTimeKey() == 3) {
+			startTime.getItems().remove(40);
+			startTime.getItems().remove(39);
+			startTime.getItems().remove(38);
+		} else {
+			startTime.getItems().remove(40);
+			startTime.getItems().remove(39);
+			startTime.getItems().remove(38);
+			startTime.getItems().remove(37);
+		}
+
 		Connection connection = null;
 		PreparedStatement psReturnTime = null;
 		ResultSet resultSet = null;
@@ -348,26 +364,23 @@ public class Utility {
 			resultSet = psReturnTime.executeQuery();
 
 			int prevStartTime = 0;
+
 			while (resultSet.next()) {
-				System.out.println(
-						"Start: " + resultSet.getInt("startTime") + "\n" + "End: " + resultSet.getInt("endTime"));
 				for (int i = resultSet.getInt("startTime"); i < resultSet.getInt("endTime"); i++) {
-					System.out.println(getHash().get(i) + "-");
 					startTime.getItems().remove(getHash().get(i));
 				}
 				for (int i = resultSet.getInt("endTime") - 1; i >= resultSet.getInt("endTime")
 						- service.getTimeKey(); i--) {
-					System.out.println(getHash().get(i) + "--");
 					startTime.getItems().remove(getHash().get(i));
 
 				}
 				if (resultSet.getInt("startTime") - prevStartTime < service.getTimeKey()) {
 					for (int i = prevStartTime; i < resultSet.getInt("startTime"); i++) {
-						System.out.println(getHash().get(i) + "---");
 						startTime.getItems().remove(getHash().get(i));
 					}
 
 				}
+
 				prevStartTime = resultSet.getInt("startTime");
 			}
 		} catch (Exception e) {
@@ -527,10 +540,7 @@ public class Utility {
 		ArrayList<Pane> remove = new ArrayList<Pane>();
 		ObservableList<Node> a = timeTable.getChildren();
 		for (int i = 0; i < a.size(); i++) {
-			System.out.println(a.size());
-			System.out.println(a.get(i) + "--");
 			if (a.get(i).getClass() == paneCheck.getClass()) {
-				System.out.println(a.get(i));
 				paneCheck = (Pane) a.get(i);
 				remove.add(paneCheck);
 			}
@@ -584,7 +594,6 @@ public class Utility {
 						p.getChildren().addAll(info, time);
 					}
 					timeTable.add(p, column, row);
-					System.out.println("this prints");
 
 					row = 1;
 					column = 1;

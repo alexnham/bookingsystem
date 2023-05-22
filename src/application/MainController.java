@@ -88,7 +88,6 @@ public class MainController extends Utility implements Initializable {
 		} else {
 			for (int i = 0; i < super.getEmployees().size(); i++) {
 				if (super.getEmployees().get(i).getEmpName().equals(newName.getText())) {
-					System.out.println("test");
 					super.delEmp(e, super.getEmployees().get(i));
 					success.setStyle("-fx-fill: #2ec684");
 					success.setText("Employee Deleted Successfully");

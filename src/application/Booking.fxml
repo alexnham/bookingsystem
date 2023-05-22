@@ -55,7 +55,7 @@
          </font>
       </Text>
       <DatePicker fx:id="selectDate" layoutX="415.0" layoutY="292.0" prefHeight="26.0" prefWidth="160.0" />
-      <Text fx:id="endTime" layoutX="415.0" layoutY="461.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="160.0">
+      <Text fx:id="endTime" layoutX="415.0" layoutY="453.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="160.0">
          <font>
             <Font size="21.0" />
          </font>

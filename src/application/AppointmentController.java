@@ -32,7 +32,6 @@ public class AppointmentController extends MainController implements Initializab
 	@FXML
 	private GridPane timeTable;
 
-
 	public void home(ActionEvent e) {
 		super.home(e);
 	}
@@ -54,6 +53,15 @@ public class AppointmentController extends MainController implements Initializab
 		LocalDate selectedDate = selectDate.getValue();
 		String formatDate = selectedDate.format(DateTimeFormatter.ofPattern("MMMM dd"));
 		date.setText(formatDate);
+		if (selectEmp.getValue() != null) {
+			try {
+				assignTable(timeTable, selectEmp.getValue(), selectDate.getValue());
+			} catch (FileNotFoundException | SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+
+		}
 	}
 
 	@Override
@@ -83,16 +91,6 @@ public class AppointmentController extends MainController implements Initializab
 				e.printStackTrace();
 			}
 		});
-		selectDate.setOnAction(event -> {
-			try {
-				System.out.println("date change");
-				assignTable(timeTable, selectEmp.getValue(), selectDate.getValue());
-			} catch (FileNotFoundException | SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		});
-
 	}
 
 }
