@@ -9,6 +9,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -27,8 +28,8 @@ public class Main extends Application{
 
 	@Override
 	public void start(Stage stage) throws Exception {
-		Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
-		Scene scene = new Scene(root,size.getWidth()/3,size.getHeight()/1.75);
+		Parent root = FXMLLoader.load(getClass().getResource("HomeScreen.fxml"));
+		Scene scene = new Scene(root);
 		String css = this.getClass().getResource("application.css").toExternalForm();
 		scene.getStylesheets().add(css);
 		stage.setScene(scene);
