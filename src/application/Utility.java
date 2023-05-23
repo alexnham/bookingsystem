@@ -2,6 +2,7 @@ package application;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
@@ -40,7 +41,7 @@ public class Utility {
 		Connection connection = null;
 		PreparedStatement psReturnEmp = null;
 		ResultSet resultSet = null;
-		File f = new File("src/sqlLogin.txt");
+		InputStream f = getClass().getClassLoader().getResourceAsStream("sqlLogin.txt");
 		Scanner s = new Scanner(f);
 		String[] connectInfo = { s.next(), s.next(), s.next() };
 
