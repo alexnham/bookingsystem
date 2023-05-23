@@ -24,7 +24,6 @@ import javafx.scene.text.Text;
 
 
 public class Main extends Application{
-	Dimension size = Toolkit.getDefaultToolkit().getScreenSize();
 
 	@Override
 	public void start(Stage stage) throws Exception {
