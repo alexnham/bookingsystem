@@ -34,6 +34,8 @@ public class Utility {
 
 	private Parent root;
 	private Stage stage;
+	private InputStream f = getClass().getClassLoader().getResourceAsStream("sqlLogin.txt");
+
 
 	public ObservableList<Employee> loadEmployees() throws SQLException, FileNotFoundException {
 
@@ -41,7 +43,6 @@ public class Utility {
 		Connection connection = null;
 		PreparedStatement psReturnEmp = null;
 		ResultSet resultSet = null;
-		InputStream f = getClass().getClassLoader().getResourceAsStream("sqlLogin.txt");
 		Scanner s = new Scanner(f);
 		String[] connectInfo = { s.next(), s.next(), s.next() };
 
@@ -128,8 +129,7 @@ public class Utility {
 		PreparedStatement psDel = null;
 		PreparedStatement psExists = null;
 		ResultSet resultSet = null;
-		File file = new File("src/sqlLogin.txt");
-		Scanner scan = new Scanner(file);
+		Scanner scan = new Scanner(f);
 		String[] connectInfo = { scan.next(), scan.next(), scan.next() };
 
 		try {
@@ -176,9 +176,8 @@ public class Utility {
 		ResultSet resultSet = null;
 		ResultSet getTopKey = null;
 		int key;
-		File file = new File("src/sqlLogin.txt");
 		@SuppressWarnings("resource")
-		Scanner scan = new Scanner(file);
+		Scanner scan = new Scanner(f);
 		String[] connectInfo = { scan.next(), scan.next(), scan.next() };
 
 		try {
@@ -234,8 +233,7 @@ public class Utility {
 		PreparedStatement psApp = null;
 		ResultSet resultSet = null;
 		ResultSet removeApp = null;
-		File file = new File("src/sqlLogin.txt");
-		Scanner scan = new Scanner(file);
+		Scanner scan = new Scanner(f);
 		String[] connectInfo = { scan.next(), scan.next(), scan.next() };
 
 		try {
@@ -289,7 +287,6 @@ public class Utility {
 		Connection connection = null;
 		PreparedStatement psReturnEmp = null;
 		ResultSet resultSet = null;
-		File f = new File("src/sqlLogin.txt");
 		Scanner s = new Scanner(f);
 		String[] connectInfo = { s.next(), s.next(), s.next() };
 		try {
@@ -353,7 +350,6 @@ public class Utility {
 		Connection connection = null;
 		PreparedStatement psReturnTime = null;
 		ResultSet resultSet = null;
-		File f = new File("src/sqlLogin.txt");
 		Scanner s = new Scanner(f);
 		String[] connectInfo = { s.next(), s.next(), s.next() };
 		try {
@@ -453,7 +449,6 @@ public class Utility {
 		Connection connection = null;
 		PreparedStatement psReturnEmp = null;
 		ResultSet resultSet = null;
-		File f = new File("src/sqlLogin.txt");
 		@SuppressWarnings("resource")
 		Scanner s = new Scanner(f);
 		String[] connectInfo = { s.next(), s.next(), s.next() };
@@ -489,9 +484,8 @@ public class Utility {
 		PreparedStatement topKey = null;
 		ResultSet getTopKey = null;
 		int key;
-		File file = new File("src/sqlLogin.txt");
 		@SuppressWarnings("resource")
-		Scanner scan = new Scanner(file);
+		Scanner scan = new Scanner(f);
 		String[] connectInfo = { scan.next(), scan.next(), scan.next() };
 
 		try {
@@ -554,7 +548,6 @@ public class Utility {
 		Connection connection = null;
 		PreparedStatement psReturnTime = null;
 		ResultSet resultSet = null;
-		File f = new File("src/sqlLogin.txt");
 		Scanner s = new Scanner(f);
 		String[] connectInfo = { s.next(), s.next(), s.next() };
 		String[] colorCodes = { "#ACDDDE", "#CAF1DE", "#FFE7C7", "#ff726f" };
@@ -628,8 +621,7 @@ public class Utility {
 		PreparedStatement psDel = null;
 		PreparedStatement psExists = null;
 		ResultSet resultSet = null;
-		File file = new File("src/sqlLogin.txt");
-		Scanner scan = new Scanner(file);
+		Scanner scan = new Scanner(f);
 		String[] connectInfo = { scan.next(), scan.next(), scan.next() };
 
 		try {

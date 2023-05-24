@@ -69,28 +69,27 @@ public class AppointmentController extends MainController implements Initializab
 		ArrayList<Employee> employees = null;
 		try {
 			employees = super.getEmployees();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		LocalDate now = LocalDate.now();
-		selectDate.setValue(now);
-		if (date != null) {
-			for (int i = 0; i < employees.size(); i++) {
-				selectEmp.getItems().add(employees.get(i));
+
+			LocalDate now = LocalDate.now();
+			selectDate.setValue(now);
+			if (date != null) {
+				for (int i = 0; i < employees.size(); i++) {
+					selectEmp.getItems().add(employees.get(i));
+				}
+				date.setText(now.format(DateTimeFormatter.ofPattern("MMMM dd")));
 			}
-			date.setText(now.format(DateTimeFormatter.ofPattern("MMMM dd")));
+			selectEmp.setOnAction(event -> {
+				try {
+					assignTable(timeTable, selectEmp.getValue(), selectDate.getValue());
+				} catch (FileNotFoundException | SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+			});
+
+		} catch (Exception e) {
 		}
-		selectEmp.setOnAction(event -> {
-			try {
-				assignTable(timeTable, selectEmp.getValue(), selectDate.getValue());
-			} catch (FileNotFoundException | SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		});
 	}
 
 }
