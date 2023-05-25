@@ -1,6 +1,7 @@
 package application;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -49,7 +50,7 @@ public class AppointmentController extends MainController implements Initializab
 		super.appointment(e);
 	}
 
-	public void changeDate(ActionEvent e) {
+	public void changeDate(ActionEvent e) throws IOException {
 		LocalDate selectedDate = selectDate.getValue();
 		String formatDate = selectedDate.format(DateTimeFormatter.ofPattern("MMMM dd"));
 		date.setText(formatDate);
@@ -81,7 +82,7 @@ public class AppointmentController extends MainController implements Initializab
 			selectEmp.setOnAction(event -> {
 				try {
 					assignTable(timeTable, selectEmp.getValue(), selectDate.getValue());
-				} catch (FileNotFoundException | SQLException e) {
+				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}

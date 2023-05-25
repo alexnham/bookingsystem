@@ -2,6 +2,7 @@ package application;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.Date;
@@ -34,11 +35,9 @@ public class Utility {
 
 	private Parent root;
 	private Stage stage;
-	private InputStream f = getClass().getClassLoader().getResourceAsStream("sqlLogin.txt");
 
-
-	public ObservableList<Employee> loadEmployees() throws SQLException, FileNotFoundException {
-
+	public ObservableList<Employee> loadEmployees() throws SQLException, IOException {
+		InputStream f = getClass().getClassLoader().getResourceAsStream("sqlLogin.txt");
 		ObservableList<Employee> list = FXCollections.observableArrayList();
 		Connection connection = null;
 		PreparedStatement psReturnEmp = null;
@@ -57,6 +56,7 @@ public class Utility {
 
 		} finally {
 			s.close();
+			f.close();
 			if (resultSet != null) {
 				resultSet.close();
 			}
@@ -83,11 +83,11 @@ public class Utility {
 		}
 	}
 
-	public boolean newService(ActionEvent e, String name, String time) throws FileNotFoundException, SQLException {
+	public boolean newService(ActionEvent e, String name, String time) throws SQLException, IOException {
 		Connection connection = null;
 		PreparedStatement psInsert = null;
-		File file = new File("src/sqlLogin.txt");
-		Scanner scan = new Scanner(file);
+		InputStream f = getClass().getClassLoader().getResourceAsStream("sqlLogin.txt");
+		Scanner scan = new Scanner(f);
 		String[] connectInfo = { scan.next(), scan.next(), scan.next() };
 
 		try {
@@ -110,10 +110,10 @@ public class Utility {
 			}
 			psInsert.executeUpdate();
 
-		} catch (SQLException f) {
-			f.printStackTrace();
+		} catch (SQLException j) {
 		} finally {
 			scan.close();
+			f.close();
 			if (psInsert != null) {
 				psInsert.close();
 			}
@@ -124,11 +124,12 @@ public class Utility {
 		return true;
 	}
 
-	public boolean delService(ActionEvent e, String name) throws SQLException, FileNotFoundException {
+	public boolean delService(ActionEvent e, String name) throws SQLException, IOException {
 		Connection connection = null;
 		PreparedStatement psDel = null;
 		PreparedStatement psExists = null;
 		ResultSet resultSet = null;
+		InputStream f = getClass().getClassLoader().getResourceAsStream("sqlLogin.txt");
 		Scanner scan = new Scanner(f);
 		String[] connectInfo = { scan.next(), scan.next(), scan.next() };
 
@@ -148,10 +149,10 @@ public class Utility {
 				psDel.setString(1, name);
 				psDel.executeUpdate();
 			}
-		} catch (SQLException f) {
-			f.printStackTrace();
+		} catch (SQLException g) {
 		} finally {
 			scan.close();
+			f.close();
 			if (psDel != null) {
 				psDel.close();
 			}
@@ -168,7 +169,7 @@ public class Utility {
 		return true;
 	}
 
-	public boolean newEmp(ActionEvent e, String name) throws SQLException, FileNotFoundException {
+	public boolean newEmp(ActionEvent e, String name) throws SQLException, IOException {
 		Connection connection = null;
 		PreparedStatement psInsert = null;
 		PreparedStatement psCheck = null;
@@ -176,6 +177,7 @@ public class Utility {
 		ResultSet resultSet = null;
 		ResultSet getTopKey = null;
 		int key;
+		InputStream f = getClass().getClassLoader().getResourceAsStream("sqlLogin.txt");
 		@SuppressWarnings("resource")
 		Scanner scan = new Scanner(f);
 		String[] connectInfo = { scan.next(), scan.next(), scan.next() };
@@ -201,9 +203,10 @@ public class Utility {
 				psInsert.setString(2, name);
 				psInsert.executeUpdate();
 			}
-		} catch (SQLException f) {
-			f.printStackTrace();
+		} catch (SQLException g) {
 		} finally {
+			scan.close();
+			f.close();
 			if (psInsert != null) {
 				psInsert.close();
 			}
@@ -226,13 +229,14 @@ public class Utility {
 		return true;
 	}
 
-	public boolean delEmp(ActionEvent e, Employee employee) throws SQLException, FileNotFoundException {
+	public boolean delEmp(ActionEvent e, Employee employee) throws SQLException, IOException {
 		Connection connection = null;
 		PreparedStatement psDel = null;
 		PreparedStatement psExists = null;
 		PreparedStatement psApp = null;
 		ResultSet resultSet = null;
 		ResultSet removeApp = null;
+		InputStream f = getClass().getClassLoader().getResourceAsStream("sqlLogin.txt");
 		Scanner scan = new Scanner(f);
 		String[] connectInfo = { scan.next(), scan.next(), scan.next() };
 
@@ -252,10 +256,10 @@ public class Utility {
 				removeApp = psExists.executeQuery();
 			}
 
-		} catch (Exception f) {
-			f.printStackTrace();
+		} catch (Exception g) {
 		} finally {
 			scan.close();
+			f.close();
 			if (psDel != null) {
 				psDel.close();
 			}
@@ -282,11 +286,12 @@ public class Utility {
 
 	}
 
-	public void fillServices(ComboBox<Service> services) throws SQLException, FileNotFoundException {
+	public void fillServices(ComboBox<Service> services) throws SQLException, IOException {
 		ObservableList<Service> list = FXCollections.observableArrayList();
 		Connection connection = null;
 		PreparedStatement psReturnEmp = null;
 		ResultSet resultSet = null;
+		InputStream f = getClass().getClassLoader().getResourceAsStream("sqlLogin.txt");
 		Scanner s = new Scanner(f);
 		String[] connectInfo = { s.next(), s.next(), s.next() };
 		try {
@@ -301,6 +306,7 @@ public class Utility {
 		} catch (Exception e) {
 		} finally {
 			s.close();
+			f.close();
 			if (resultSet != null) {
 				resultSet.close();
 			}
@@ -313,7 +319,7 @@ public class Utility {
 		}
 	}
 
-	public void fillEmp(ComboBox<Employee> emp) throws FileNotFoundException, SQLException {
+	public void fillEmp(ComboBox<Employee> emp) throws SQLException, IOException {
 		emp.getItems().clear();
 		for (int i = 0; i < getEmployees().size(); i++) {
 			emp.getItems().add(getEmployees().get(i));
@@ -321,7 +327,7 @@ public class Utility {
 	}
 
 	public void fillStartTime(ComboBox<String> startTime, Service service, int id, LocalDate date)
-			throws SQLException, FileNotFoundException {
+			throws SQLException, IOException {
 		startTime.getItems().clear();
 		HashMap<Integer, String> timeList = getHash();
 		for (int i = 0; i < timeList.size(); i++) {
@@ -350,6 +356,7 @@ public class Utility {
 		Connection connection = null;
 		PreparedStatement psReturnTime = null;
 		ResultSet resultSet = null;
+		InputStream f = getClass().getClassLoader().getResourceAsStream("sqlLogin.txt");
 		Scanner s = new Scanner(f);
 		String[] connectInfo = { s.next(), s.next(), s.next() };
 		try {
@@ -366,7 +373,7 @@ public class Utility {
 				for (int i = resultSet.getInt("startTime"); i < resultSet.getInt("endTime"); i++) {
 					startTime.getItems().remove(getHash().get(i));
 				}
-				for (int i = resultSet.getInt("endTime") - 1; i >= resultSet.getInt("endTime")
+				for (int i = resultSet.getInt("startTime") - 1; i > resultSet.getInt("startTime")
 						- service.getTimeKey(); i--) {
 					startTime.getItems().remove(getHash().get(i));
 
@@ -383,6 +390,7 @@ public class Utility {
 		} catch (Exception e) {
 		} finally {
 			s.close();
+			f.close();
 			if (resultSet != null) {
 				resultSet.close();
 			}
@@ -444,12 +452,13 @@ public class Utility {
 		return endValue;
 	}
 
-	public ArrayList<Employee> getEmployees() throws SQLException, FileNotFoundException {
+	public ArrayList<Employee> getEmployees() throws SQLException, IOException {
 		ArrayList<Employee> employees = new ArrayList<Employee>();
 		Connection connection = null;
 		PreparedStatement psReturnEmp = null;
 		ResultSet resultSet = null;
 		@SuppressWarnings("resource")
+		InputStream f = getClass().getClassLoader().getResourceAsStream("sqlLogin.txt");
 		Scanner s = new Scanner(f);
 		String[] connectInfo = { s.next(), s.next(), s.next() };
 		try {
@@ -463,6 +472,8 @@ public class Utility {
 		} catch (Exception g) {
 
 		} finally {
+			s.close();
+			f.close();
 			if (resultSet != null) {
 				resultSet.close();
 			}
@@ -478,13 +489,14 @@ public class Utility {
 	}
 
 	public boolean bookAppointment(String customerName, Service service, Employee employee, int startKey, int endKey,
-			String phoneNum, LocalDate date) throws SQLException, FileNotFoundException {
+			String phoneNum, LocalDate date) throws SQLException, IOException {
 		Connection connection = null;
 		PreparedStatement psInsert = null;
 		PreparedStatement topKey = null;
 		ResultSet getTopKey = null;
 		int key;
 		@SuppressWarnings("resource")
+		InputStream f = getClass().getClassLoader().getResourceAsStream("sqlLogin.txt");
 		Scanner scan = new Scanner(f);
 		String[] connectInfo = { scan.next(), scan.next(), scan.next() };
 
@@ -508,9 +520,11 @@ public class Utility {
 			psInsert.setString(7, phoneNum);
 			psInsert.executeUpdate();
 
-		} catch (Exception f) {
+		} catch (Exception g) {
 			return false;
 		} finally {
+			scan.close();
+			f.close();
 			if (psInsert != null) {
 				psInsert.close();
 			}
@@ -530,7 +544,7 @@ public class Utility {
 
 	@SuppressWarnings("unlikely-arg-type")
 	public void assignTable(GridPane timeTable, Employee employee, LocalDate date)
-			throws FileNotFoundException, SQLException {
+			throws SQLException, IOException {
 		Pane paneCheck = new Pane();
 		ArrayList<Pane> remove = new ArrayList<Pane>();
 		ObservableList<Node> a = timeTable.getChildren();
@@ -548,6 +562,7 @@ public class Utility {
 		Connection connection = null;
 		PreparedStatement psReturnTime = null;
 		ResultSet resultSet = null;
+		InputStream f = getClass().getClassLoader().getResourceAsStream("sqlLogin.txt");
 		Scanner s = new Scanner(f);
 		String[] connectInfo = { s.next(), s.next(), s.next() };
 		String[] colorCodes = { "#ACDDDE", "#CAF1DE", "#FFE7C7", "#ff726f" };
@@ -604,6 +619,7 @@ public class Utility {
 			e.printStackTrace();
 		} finally {
 			s.close();
+			f.close();
 			if (resultSet != null) {
 				resultSet.close();
 			}
@@ -616,11 +632,12 @@ public class Utility {
 		}
 	}
 
-	public boolean cancelApp(int id) throws SQLException, FileNotFoundException {
+	public boolean cancelApp(int id) throws SQLException, IOException {
 		Connection connection = null;
 		PreparedStatement psDel = null;
 		PreparedStatement psExists = null;
 		ResultSet resultSet = null;
+		InputStream f = getClass().getClassLoader().getResourceAsStream("sqlLogin.txt");
 		Scanner scan = new Scanner(f);
 		String[] connectInfo = { scan.next(), scan.next(), scan.next() };
 
@@ -637,10 +654,10 @@ public class Utility {
 				psDel.setInt(1, id);
 				psDel.executeUpdate();
 			}
-		} catch (SQLException f) {
-			f.printStackTrace();
+		} catch (SQLException g) {
 		} finally {
 			scan.close();
+			f.close();
 			if (psDel != null) {
 				psDel.close();
 			}

@@ -1,6 +1,7 @@
 package application;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -65,7 +66,7 @@ public class BookingController extends MainController implements Initializable {
 		super.swap(e, "AddService.fxml");
 	}
 
-	public void finishBooking(ActionEvent e) throws FileNotFoundException, SQLException {
+	public void finishBooking(ActionEvent e) throws SQLException, IOException {
 		if (customerName.getText().equals("") || startTime.getSelectionModel().isEmpty()
 				|| service.getSelectionModel().isEmpty() || phoneNum.getText().equals("")) {
 			Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -95,10 +96,7 @@ public class BookingController extends MainController implements Initializable {
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		try {
 			super.fillServices(service);
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+		} catch (Exception e) {
 		}
 		selectDate.setOnAction(event -> {
 			startTime.getItems().clear();
@@ -109,7 +107,7 @@ public class BookingController extends MainController implements Initializable {
 		service.setOnAction(event -> {
 			try {
 				super.fillEmp(selectEmp);
-			} catch (FileNotFoundException | SQLException e) {
+			} catch (Exception e) {
 				// TODO Auto-generated catch block
 			}
 			startTime.getItems().clear();

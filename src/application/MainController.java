@@ -64,7 +64,7 @@ public class MainController extends Utility implements Initializable {
 		super.swap(e, "Appointments.fxml");
 	}
 
-	public void newEmp(ActionEvent e) throws SQLException, FileNotFoundException {
+	public void newEmp(ActionEvent e) throws SQLException, IOException {
 		if (newName.getText().isEmpty()) {
 			Alert alert = new Alert(Alert.AlertType.ERROR);
 			alert.setContentText("Please Fill Name");
@@ -80,7 +80,7 @@ public class MainController extends Utility implements Initializable {
 		}
 	}
 
-	public void delEmp(ActionEvent e) throws SQLException, FileNotFoundException {
+	public void delEmp(ActionEvent e) throws SQLException, IOException {
 		if (newName.getText().isEmpty()) {
 			Alert alert = new Alert(Alert.AlertType.ERROR);
 			alert.setContentText("Please Fill Name");
@@ -101,7 +101,7 @@ public class MainController extends Utility implements Initializable {
 		}
 	}
 
-	public void delService(ActionEvent e) throws SQLException, FileNotFoundException {
+	public void delService(ActionEvent e) throws SQLException, IOException {
 		if (newName.getText().isEmpty()) {
 			Alert alert = new Alert(Alert.AlertType.ERROR);
 			alert.setContentText("Please Fill Name");
@@ -115,7 +115,7 @@ public class MainController extends Utility implements Initializable {
 		}
 	}
 
-	public void addService(ActionEvent e) throws FileNotFoundException, SQLException {
+	public void addService(ActionEvent e) throws SQLException, IOException {
 		if (serviceName.getText().isEmpty() || serviceDuration.getValue() == null) {
 			Alert alert = new Alert(Alert.AlertType.ERROR);
 			alert.setContentText("Please Fill Both Name and Duration");
@@ -126,7 +126,7 @@ public class MainController extends Utility implements Initializable {
 		}
 	}
 
-	public void cancelApp(ActionEvent e) {
+	public void cancelApp(ActionEvent e) throws IOException {
 		try {
 			if (super.cancelApp(Integer.valueOf(appID.getText()))) {
 				success.setStyle("-fx-fill: #2ec684");
@@ -143,7 +143,7 @@ public class MainController extends Utility implements Initializable {
 
 	}
 
-	public void changeDate(ActionEvent e) {
+	public void changeDate(ActionEvent e) throws IOException {
 		LocalDate selectedDate = selectDate.getValue();
 		String formatDate = selectedDate.format(DateTimeFormatter.ofPattern("MMMM dd"));
 		date.setText(formatDate);

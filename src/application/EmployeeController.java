@@ -74,12 +74,9 @@ public class EmployeeController extends MainController implements Initializable 
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		try {
 			list = super.loadEmployees();
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		} 
 		empName.setCellValueFactory(new PropertyValueFactory<Employee, String>("empName"));
 		empID.setCellValueFactory(new PropertyValueFactory<Employee, Integer>("empID"));
 		empList.setItems(list);
