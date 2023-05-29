@@ -1,11 +1,8 @@
 package application;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -20,7 +17,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -510,15 +506,14 @@ public class Utility {
 			key = getTopKey.getInt("MAX(appID)") + 1;
 			//// creating the new employee
 			psInsert = connection.prepareStatement(
-					"INSERT INTO appointments (appID, employee, serviceName, customer, appDay, startTime, endTime, phoneNum) VALUES (?,?,?,?,?,?,?,?)");
+					"INSERT INTO appointments (appID, employee, customer, appDay, startTime, endTime, phoneNum) VALUES (?,?,?,?,?,?,?)");
 			psInsert.setInt(1, key);
 			psInsert.setInt(2, employee.getEmpID());
-			psInsert.setString(3, service.getName());
-			psInsert.setString(4, customerName);
-			psInsert.setDate(5, java.sql.Date.valueOf(date));
-			psInsert.setInt(6, startKey);
-			psInsert.setInt(7, endKey);
-			psInsert.setString(8, phoneNum);
+			psInsert.setString(3, customerName);
+			psInsert.setDate(4, java.sql.Date.valueOf(date));
+			psInsert.setInt(5, startKey);
+			psInsert.setInt(6, endKey);
+			psInsert.setString(7, phoneNum);
 			psInsert.executeUpdate();
 
 		} catch (Exception g) {
@@ -543,7 +538,6 @@ public class Utility {
 
 	}
 
-	@SuppressWarnings("unlikely-arg-type")
 	public void assignTable(GridPane timeTable, Employee employee, LocalDate date)
 			throws SQLException, IOException {
 		Pane paneCheck = new Pane();
@@ -574,8 +568,6 @@ public class Utility {
 		int endTime;
 		int appID;
 		String customer;
-		String serviceName;
-		String phoneNum;
 
 		try {
 			connection = DriverManager.getConnection(connectInfo[0], connectInfo[1], connectInfo[2]);
@@ -589,8 +581,6 @@ public class Utility {
 				startTime = resultSet.getInt("startTime");
 				endTime = resultSet.getInt("endTime");
 				customer = resultSet.getString("customer");
-				serviceName = resultSet.getString("serviceName");
-				phoneNum = resultSet.getString("phoneNum");
 				for (int i = startTime; i < endTime; i++) {
 					row += Math.floorDiv(i, 4);
 					column += i % 4;
@@ -598,12 +588,12 @@ public class Utility {
 					Pane p = new Pane();
 					p.setStyle("-fx-background-color: " + colorCodes[colorCodeValue]);
 					if (i == startTime) {
-						Text info = new Text("ID: " + String.valueOf(appID) + " Service: " + serviceName + "\n" + "Name: " + customer + "\nPhone: " + phoneNum);
-						info.relocate(0, -6);
-						info.setStyle("-fx-font: 7 arial;");
+						Text info = new Text("ID: " + String.valueOf(appID) + " Name: `" + customer);
+						info.relocate(0, 0);
+						info.setStyle("-fx-font: 8 arial;");
 						Text time = new Text(1, 1, getHash().get(startTime) + "-" + getHash().get(endTime));
-						time.relocate(0, 18);
-						time.setStyle("-fx-font: 7 arial;");
+						time.relocate(1, 10);
+						time.setStyle("-fx-font: 10 arial;");
 
 						p.getChildren().addAll(info, time);
 					}
