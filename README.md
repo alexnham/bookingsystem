@@ -1,6 +1,7 @@
 # bookingsystem
 simple booking system
 
+This booking system uses JavaFX to run
 
 to properly use, some steps must be taken to set it up for your system
 
