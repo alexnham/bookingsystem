@@ -1,5 +1,5 @@
 # bookingsystem
-simple booking system
+inhouse booking system
 
 This booking system uses JavaFX to run
 
